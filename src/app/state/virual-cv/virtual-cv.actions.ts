@@ -17,7 +17,15 @@ export enum VirtualCVActionTypes {
 
   LoadVirtualCV = '[Load VirtualCV] Load VirtualCV Request',
   LoadVirtualCVSuccess = '[Load VirtualCV] VirtualCV Loaded Success',
-  LoadVirtualCVError = '[Load VirtualCV] VirtualCV Loaded Error'
+  LoadVirtualCVError = '[Load VirtualCV] VirtualCV Loaded Error',
+
+  LoadUsersVirtualCV = '[Load users VirtualCV] Load VirtualCV Request',
+  LoadUsersVirtualCVSuccess = '[Load users VirtualCV] VirtualCV Loaded Success',
+  LoadUsersVirtualCVError = '[Load users VirtualCV] VirtualCV Loaded Error',
+
+  UpdateVirtualCV= '[Update virtualCV] request',
+  UpdateVirtualCVSuccess = '[Update virtualCV] success',
+  UpdateVirtualCVError = '[Update virtualCV] error'
 }
 
 //LOAD VirtualCV
@@ -30,5 +38,31 @@ export const getVirtualCVSuccess = createAction(
 )
 export const getVirtualCVError = createAction(
   VirtualCVActionTypes.LoadVirtualCVError,
+  props<{ error: string }>()
+)
+
+export const getUsersVirtualCV = createAction(
+  VirtualCVActionTypes.LoadUsersVirtualCV,
+  props<{id: string}>()
+)
+export const getUsersVirtualCVSuccess = createAction(
+  VirtualCVActionTypes.LoadUsersVirtualCVSuccess,
+  props<{ virtualCV: IVirtualCV[] }>()
+)
+export const getUsersVirtualCVError = createAction(
+  VirtualCVActionTypes.LoadUsersVirtualCVError,
+  props<{ error: string }>()
+)
+
+export const updateVirtualCV = createAction(
+  VirtualCVActionTypes.UpdateVirtualCV,
+  props<{virtualCV: IVirtualCV}>()
+)
+export const updateVirtualCVSuccess = createAction(
+  VirtualCVActionTypes.UpdateVirtualCVSuccess,
+  props<{ virtualCV: IVirtualCV}>()
+)
+export const updateVirtualCVError = createAction(
+  VirtualCVActionTypes.UpdateVirtualCVError,
   props<{ error: string }>()
 )

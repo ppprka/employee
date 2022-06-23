@@ -1,6 +1,5 @@
-import {Action, createAction, props} from "@ngrx/store";
+import {createAction, props} from "@ngrx/store";
 import {IProject, IProjectRequest} from "../../shared/interfaces/project.interface";
-import {Update} from "@ngrx/entity";
 
 
 export enum ProjectActionTypes {
@@ -18,7 +17,11 @@ export enum ProjectActionTypes {
 
   LoadProjects = '[Load Projects] Load Project Request',
   LoadProjectsSuccess = '[Load Projects] Projects Loaded Success',
-  LoadProjectsError = '[Load Projects] Projects Loaded Error'
+  LoadProjectsError = '[Load Projects] Projects Loaded Error',
+
+  GetProject = '[Get Project] request',
+  GetProjectSuccess = '[Get project] success',
+  GetProjectError = '[Get project] error'
 }
 //LOAD PROJECTS
 export const getProjects = createAction(
@@ -69,5 +72,18 @@ export const deleteProjectSuccess = createAction(
 )
 export const deleteProjectError = createAction(
   ProjectActionTypes.DeleteProjectError,
+  props<{error: string}>()
+)
+
+export const getProject =  createAction(
+  ProjectActionTypes.GetProject,
+  props<{id: string}>()
+)
+export const getProjectSuccess =  createAction(
+  ProjectActionTypes.GetProjectSuccess,
+  props<{project: IProject}>()
+)
+export const getProjectError =  createAction(
+  ProjectActionTypes.GetProjectError,
   props<{error: string}>()
 )

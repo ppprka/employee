@@ -1,14 +1,14 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Store} from "@ngrx/store";
-import {ProjectsPageService} from "../../shared/services/project-page/projects-page.service";
 import {catchError, from, map, of, switchMap} from "rxjs";
 import {getProjectsRoles, getProjectsRolesError, getProjectsRolesSuccess} from "./project-roles.actions";
 import {AppState} from "../app.state";
+import {ApiService} from "../../shared/services/api/api.service";
 
 @Injectable({providedIn: 'root'})
 export class ProjectRolesEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ProjectsPageService) {
+  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ApiService) {
   }
 
   getProjectRoles$ = createEffect(() =>

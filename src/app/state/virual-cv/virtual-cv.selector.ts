@@ -10,3 +10,13 @@ export const selectAllVirtualCV = createSelector(
   selectVirtualCV,
   (state: VirtualCVState) => state.virtualCV
 );
+
+export const selectUsersVirtualCV = createSelector(
+  selectVirtualCV,
+  (state: VirtualCVState) => state.virtualCV
+)
+
+export const selectCurrentVirtualCV = createSelector(
+  selectVirtualCV,
+  (state: VirtualCVState) => state.currentVirtualCV
+)

@@ -7,25 +7,24 @@ import {Router} from "@angular/router";
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.css']
 })
-export class BaseTableComponent implements OnInit {
+export class BaseTableComponent {
 
-  @Input() objects: any[];
-  @Input() cols: any[];
-  @Output() public edit = new EventEmitter<any>();
-
-  first: number = 0;
+  @Input()
+  public objects: any[];
+  @Input()
+  public cols: any[];
+  @Output()
+  public edit = new EventEmitter<any>();
+  public first: number = 0;
 
   constructor(private router: Router) {
   }
 
-  ngOnInit() {
-  }
-
-  reset() {
+  public reset(): void {
     this.first = 0;
   }
 
-  editRow(row: any) {
+  public editRow(row: any): void {
     this.edit.emit(row);
   }
 }

@@ -11,3 +11,8 @@ export const selectAllProjects = createSelector(
   selectProjects,
   (state: ProjectState) => state.projects
 );
+
+export const selectProject = createSelector(
+  selectProjects,
+  (state: ProjectState) => state.singleProject
+)

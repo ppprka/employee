@@ -1,32 +1,32 @@
 import {ILanguage} from "./employee.interface";
-import {IProject} from "./project.interface";
+import {IProject, IProjectCV} from "./project.interface";
 
 export interface IVirtualCV {
-  id: string,
-  name: string,
-  user: string,
+  id: string;
+  name: string;
+  user: string;
   data: {
     education: {
-      establishment: string,
-      profession: string,
-    },
-    foreignLanguage: ILanguage[]
-  },
+      establishment: string;
+      profession: string;
+    };
+    foreignLanguage: ILanguage[];
+    projects: IProjectCV[]
+  };
   general: {
-    firstName: string,
-    lastName: string,
+    firstName: string;
+    lastName: string;
     name: string
-  },
-  projects: IProject[],
+  };
   resume: {
     content: string
-  },
+  };
   skills: [{
-    skillType: string,
+    skillType: string;
       skillsOfType: [{
-        skillName: string,
-        experienceYears: number,
-        level: string,
+        skillName: string;
+        experienceYears: number;
+        level: string;
         lastUsedYear: number
       }]
   }]

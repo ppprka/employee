@@ -15,9 +15,12 @@ export enum EmployeeActionTypes {
   // DeleteEmployeeSuccess = '[Delete Employee] Employee Delete Success',
   // DeleteEmployeeError = 'Delete Employee] Employee Deleted Error',
 
+  SetEmployee = '[Select Employee]',
+  SetEmployeeSuccess = '[Select Employee] success',
+  SetEmployeeError = '[Select Employee] error',
   LoadEmployees = '[Load Employees] Load Employee Request',
   LoadEmployeesSuccess = '[Load Employees] Employees Loaded Success',
-  LoadEmployeesError = '[Load Employees] Employees Loaded Error'
+  LoadEmployeesError = '[Load Employees] Employees Loaded Error',
 }
 //LOAD Employees
 export const getEmployees = createAction(
@@ -29,6 +32,19 @@ export const getEmployeesSuccess = createAction(
 )
 export const getEmployeesError = createAction(
   EmployeeActionTypes.LoadEmployeesError,
+  props<{error: string}>()
+)
+
+export const getEmployee =  createAction(
+  EmployeeActionTypes.SetEmployee,
+  props<{id: string}>()
+)
+export const getEmployeeSuccess =  createAction(
+  EmployeeActionTypes.SetEmployeeSuccess,
+  props<{employee: IEmployee}>()
+)
+export const getEmployeeError =  createAction(
+  EmployeeActionTypes.SetEmployeeError,
   props<{error: string}>()
 )
 //ADD Employee

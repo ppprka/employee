@@ -1,2 +1,7 @@
-<p-calendar [ngClass]="{'ng-invalid ng-dirty':control.touched && control.invalid}" [formControl]="control" [showIcon]="true" [showTime]="true" ></p-calendar>
+<p-calendar *ngIf="isStart" [ngClass]="{'ng-invalid ng-dirty':control.touched && control.invalid}"
+            [formControl]="control" [showIcon]="true" [showTime]="true" [maxDate]="date" >
+</p-calendar>
+<p-calendar  *ngIf="!isStart" [ngClass]="{'ng-invalid ng-dirty':control.touched && control.invalid}"
+            [formControl]="control" [showIcon]="true" [showTime]="true" [minDate]="date" >
+</p-calendar>
 <small class="p-component red-text" *ngIf="control.touched && control.invalid">This field is required</small>

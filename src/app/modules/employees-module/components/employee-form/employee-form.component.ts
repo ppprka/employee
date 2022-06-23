@@ -23,7 +23,7 @@ import {IEmployee} from "../../../../shared/interfaces/employee.interface";
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.css']
 })
-export class EmployeeFormComponent implements OnInit, OnChanges {
+export class EmployeeFormComponent implements OnChanges {
 
   @Input()
   public employee!: IEmployee;
@@ -45,15 +45,6 @@ export class EmployeeFormComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnInit(): void {
-    // this.store.dispatch(getProjectsRoles());
-    // this.projectRoles$ = this.store.select(selectAllProjectRoles);
-    // this.store.dispatch(getResponsibilities());
-    // this.responsibilities$ = this.store.select(selectAllResponsibilities);
-    // this.store.dispatch(getSpecializations());
-    // this.specializations$ = this.store.select(selectAllSpecializations);
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["employee"] && changes["employee"].currentValue) {
       this.employeeForm.patchValue({
@@ -63,7 +54,6 @@ export class EmployeeFormComponent implements OnInit, OnChanges {
         email: this.employee.email,
         department: this.employee.department
       })
-
     }
   }
 

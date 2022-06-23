@@ -13,11 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  login(creds: AuthCredsI): Observable<AuthTokenI> {
+  public login(creds: AuthCredsI): Observable<AuthTokenI> {
     return this.http.post<AuthTokenI>("https://innowise-cv-generator.herokuapp.com/auth/login", creds);
   }
 
-  setSession(token: AuthTokenI) {
+  public setSession(token: AuthTokenI): void {
     const setExpired = moment().add(token.expiresIn, 'millisecond');
     localStorage.setItem('access_token', token.accessToken)
     localStorage.setItem('id_token', token.id);
@@ -26,7 +26,7 @@ export class AuthService {
     localStorage.setItem('lastName', token.lastName)
   }
 
-  logout() {
+  public logout(): void {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
   }
@@ -35,11 +35,11 @@ export class AuthService {
     return moment().isBefore(this.getExpiration());
   }
 
-  isLoggedOut() {
+  public isLoggedOut(): boolean {
     return !this.isLoggedIn();
   }
 
-  getExpiration() {
+  public getExpiration(): any {
     const expiration = localStorage.getItem("expires_at");
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);

@@ -1,6 +1,11 @@
-<!--<div class="path-name">-->
-<!--  <h1 class="p-component">Projects</h1>-->
-<!--  <h1 class="p-component next">Projects list</h1>-->
-<!--</div>-->
-<app-project-form [project]="project" (saveProject)="save($event)"></app-project-form>
+<div class="path-name">
+  <h1 class="p-component lg:font-bold">Projects</h1>
+  <h1 class="p-component next">Project info</h1>
+</div>
+
+<div class="empl-list project-form">
+  <app-project-form [isCV]="false" [project]="project" (saveProject)="save($event)"></app-project-form>
+</div>
+
+
 

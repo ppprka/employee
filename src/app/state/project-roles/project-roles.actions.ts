@@ -1,6 +1,5 @@
 import {createAction, props} from "@ngrx/store";
-import {IProject, IProjectRole} from "../../shared/interfaces/project.interface";
-import {ProjectActionTypes} from "../project/project.actions";
+import {IProjectRole} from "../../shared/interfaces/project.interface";
 
 export enum ProjectRolesActionTypes {
   AddProjectRole = '[Crate/Edit ProjectRoles] Add ProjectRoles Request',

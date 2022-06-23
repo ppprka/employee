@@ -1,18 +1,24 @@
 import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
 import {Injectable} from "@angular/core";
-import {catchError, exhaustMap, from, map, mergeMap, of, switchMap, tap} from "rxjs";
-import {ProjectsPageService} from "../../shared/services/project-page/projects-page.service";
+import {catchError, from, map, of, switchMap} from "rxjs";
+
 import {Store} from "@ngrx/store";
-import {getEmployees, getEmployeesError, getEmployeesSuccess} from "./employee.actions";
+import {
+  getEmployee, getEmployeeError,
+  getEmployees,
+  getEmployeesError,
+  getEmployeesSuccess, getEmployeeSuccess,
+} from "./employee.actions";
 import {AppState} from "../app.state";
+import {ApiService} from "../../shared/services/api/api.service";
 
 
 @Injectable({providedIn: 'root'})
 export class EmployeeEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ProjectsPageService) {
+  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ApiService) {
   }
 
-  getProjects$ = createEffect(() =>
+  getEmployees$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getEmployees),
       switchMap(() =>
@@ -22,6 +28,15 @@ export class EmployeeEffects {
         )))
   );
 
+  getEmployee$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getEmployee),
+      switchMap((action) =>
+        from(this.projectService.getEmployee(action.id)).pipe(
+          map((employee) => getEmployeeSuccess({employee: employee})),
+          catchError((error) => of(getEmployeeError({error})))
+        )))
+  );
   // addProject$ = createEffect(() =>
   //   this.actions$.pipe(
   //     ofType(addProject),

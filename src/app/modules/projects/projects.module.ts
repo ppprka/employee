@@ -26,7 +26,7 @@ import {responsibilitiesReducer} from "../../state/responsibilities/responsibili
 import {specializationsReducer} from "../../state/specializations/specialization.reducer";
 import {ResponsibilitiesEffects} from "../../state/responsibilities/responsibilities.effects";
 import {SpecializationEffects} from "../../state/specializations/specialization.effects";
-import {ProjectFormModule} from "./components/project-form/project-form.module";
+import {ProjectFormModule} from "../../shared/components/project-form/project-form.module";
 
 
 const routes: Routes = [
@@ -36,7 +36,7 @@ const routes: Routes = [
 
   },
   {
-  path: PROJECT_EDIT_ROUTE.path,
+  path: "edit/:id",
     data: {breadcrumb: 'Projects edit'},
     component: ProjectsEditPageComponent,
   },

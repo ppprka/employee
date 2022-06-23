@@ -15,7 +15,7 @@ import {IVirtualCV} from "../../interfaces/virtual-cv.interface";
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectsPageService {
+export class ApiService {
 
   constructor(private http: HttpClient) {
   }
@@ -97,5 +97,9 @@ export class ProjectsPageService {
 
   public getUsersVirtualCVs(id: string): Observable<IVirtualCV[]> {
     return this.http.get<IVirtualCV[]>(`${BACKEND_URL}virtual-cv?user=${id}`);
+  }
+
+  public updateVirtualCV(cv: IVirtualCV): Observable<IVirtualCV> {
+    return this.http.put<IVirtualCV>(`${BACKEND_URL}virtual-cv`, cv);
   }
 }

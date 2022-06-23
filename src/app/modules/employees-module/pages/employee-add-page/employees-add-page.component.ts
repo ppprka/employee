@@ -19,8 +19,6 @@ export class EmployeesAddPageComponent implements OnInit {
   @Input()
   public employee: IEmployee;
 
-
-
   constructor() { }
 
   ngOnInit(): void {

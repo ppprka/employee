@@ -9,3 +9,8 @@ export const selectAllSpecializations = createSelector(
   selectSpecializations,
   (state: SpecializationState) => state.specializations
 );
+
+export const selectAllSpecializationsNames =  createSelector(
+  selectSpecializations,
+  (state: SpecializationState) => state.specializations.map(item => item.name)
+)

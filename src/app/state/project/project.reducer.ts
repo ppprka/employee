@@ -8,10 +8,10 @@ import {
   deleteProjectSuccess,
   editProject,
   editProjectError,
-  editProjectSuccess,
+  editProjectSuccess, getProject, getProjectError,
   getProjects,
   getProjectsError,
-  getProjectsSuccess
+  getProjectsSuccess, getProjectSuccess
 } from "./project.actions";
 import {createReducer, on} from "@ngrx/store";
 
@@ -19,6 +19,7 @@ import {createReducer, on} from "@ngrx/store";
 export interface ProjectState {
   projects: IProject[];
   currentProject?: IProjectRequest;
+  singleProject: IProject;
   deleteId: string,
   error: string;
   status: 'pending' | 'loading' | 'error' | 'success';
@@ -28,6 +29,7 @@ export interface ProjectState {
 export const initialState: ProjectState = {
   projects: [],
   currentProject: null,
+  singleProject: null,
   deleteId: '',
   error: null,
   status: 'pending',
@@ -62,7 +64,7 @@ export const projectsReducer = createReducer(
   })),
   on(addProjectError, (state, {error}) => ({
     ...state,
-    error:error,
+    error: error,
     status: 'error'
   })),
   //EDIT PROJECT
@@ -95,6 +97,22 @@ export const projectsReducer = createReducer(
     status: 'success'
   })),
   on(deleteProjectError, (state, {error}) => ({
+    ...state,
+    error: error,
+    status: 'error'
+  })),
+  on(getProject, (state, action) => ({
+    ...state,
+    id: action.id,
+    status: 'loading'
+  })),
+  on(getProjectSuccess, (state, {project}) => ({
+    ...state,
+    singleProject: project,
+    error: null,
+    status: 'success'
+  })),
+  on(getProjectError, (state, {error}) => ({
     ...state,
     error: error,
     status: 'error'

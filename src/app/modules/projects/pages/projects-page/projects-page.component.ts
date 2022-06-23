@@ -28,27 +28,25 @@ export class ProjectsPageComponent implements OnInit {
   public showAddTable = false;
 
 
-  constructor(private store: Store<AppState>, private router: Router) {
-  }
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(getProjects());
-    this.projects$ = this.store.select(selectAllProjects).pipe(tap(projects => console.log(projects)));
-    console.log('Тут')
+    this.projects$ = this.store.select(selectAllProjects);
     this.store.dispatch(getProjectsRoles());
-    this.projectRoles$ = this.store.select(selectAllProjectRoles).pipe(tap(roles => console.log(roles)))
+    this.projectRoles$ = this.store.select(selectAllProjectRoles);
   }
 
   public editProject(raw: IProject): void {
     this.project = raw;
-    console.log(this.project)
     this.showBaseTable = false;
-    this.showEditTable = true;
+    this.router.navigate(["/projects/edit",raw.id])
+
   }
 
   public addProject(): void {
     this.showBaseTable = false;
-    this.showAddTable = true;
+    this.router.navigate(["/projects/add"])
   }
 
   public save(projectToSave: IProject): void {

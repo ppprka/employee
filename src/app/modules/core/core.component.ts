@@ -39,7 +39,6 @@ public navbar: MenuItem[];
         icon: 'pi pi-question-circle pi-fw'
       },
       {
-
         icon: 'pi pi-bell pi-fw'
       },
       {

@@ -2,13 +2,19 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Store} from "@ngrx/store";
 import {AppState} from "../app.state";
-import {ProjectsPageService} from "../../shared/services/project-page/projects-page.service";
-import {catchError, from, map, of, switchMap} from "rxjs";
-import {getVirtualCV, getVirtualCVError, getVirtualCVSuccess} from "./virtual-cv.actions";
+import {catchError, from, map, of, switchMap, tap} from "rxjs";
+import {
+  getUsersVirtualCV, getUsersVirtualCVError,
+  getUsersVirtualCVSuccess,
+  getVirtualCV,
+  getVirtualCVError,
+  getVirtualCVSuccess, updateVirtualCV, updateVirtualCVError, updateVirtualCVSuccess
+} from "./virtual-cv.actions";
+import {ApiService} from "../../shared/services/api/api.service";
 
 @Injectable({providedIn: 'root'})
 export class VirtualCvEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ProjectsPageService) {
+  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ApiService) {
   }
 
   getVirtualCV$ = createEffect(() =>
@@ -18,6 +24,26 @@ export class VirtualCvEffects {
         from(this.projectService.getAllVirtualCVs()).pipe(
           map((virtualCV) => getVirtualCVSuccess({virtualCV: virtualCV})),
           catchError((error) => of(getVirtualCVError({error})))
+        )))
+  );
+
+  getUsersVirtualCV$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUsersVirtualCV),
+      switchMap((action) =>
+        from(this.projectService.getUsersVirtualCVs(action.id)).pipe(
+          map((virtualCV) => getUsersVirtualCVSuccess({virtualCV: virtualCV})),
+          catchError((error) => of(getUsersVirtualCVError({error})))
+        )))
+  );
+
+  updateVirtualCV$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateVirtualCV),
+      switchMap((action) =>
+        from(this.projectService.updateVirtualCV(action.virtualCV)).pipe(
+          map((virtualCV) => updateVirtualCVSuccess({virtualCV: virtualCV})),
+          catchError((error) => of(updateVirtualCVError({error})))
         )))
   );
 }

@@ -1,7 +1,7 @@
-import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Injectable} from "@angular/core";
-import {catchError, exhaustMap, from, map, mergeMap, of, switchMap, tap} from "rxjs";
-import {ProjectsPageService} from "../../shared/services/project-page/projects-page.service";
+import {catchError, exhaustMap, from, map, of, switchMap} from "rxjs";
+
 import {Store} from "@ngrx/store";
 import {
   addProject,
@@ -12,17 +12,18 @@ import {
   deleteProjectSuccess,
   editProject,
   editProjectError,
-  editProjectSuccess,
+  editProjectSuccess, getProject, getProjectError,
   getProjects,
   getProjectsError,
-  getProjectsSuccess
+  getProjectsSuccess, getProjectSuccess
 } from "./project.actions";
 import {AppState} from "../app.state";
+import {ApiService} from "../../shared/services/api/api.service";
 
 
 @Injectable({providedIn: 'root'})
 export class ProjectEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ProjectsPageService) {
+  constructor(private actions$: Actions, private store: Store<AppState>, private projectService: ApiService) {
   }
 
   getProjects$ = createEffect(() =>
@@ -30,7 +31,6 @@ export class ProjectEffects {
       ofType(getProjects),
       switchMap(() =>
         from(this.projectService.getAllProjects()).pipe(
-          tap(projects => console.log(projects)),
           map((projects) => getProjectsSuccess({projects: projects})),
           catchError((error) => of(getProjectsError({error})))
         )))
@@ -63,6 +63,16 @@ export class ProjectEffects {
         this.projectService.deleteProject(action.id).pipe(
           map((id) => deleteProjectSuccess({id: id})),
           catchError((error) => of(deleteProjectError({error})))
+        )))
+  );
+
+  getProject$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getProject),
+      switchMap((action) =>
+        from(this.projectService.getProject(action.id)).pipe(
+          map((project) => getProjectSuccess({project: project})),
+          catchError((error) => of(getProjectError({error})))
         )))
   );
 }

@@ -32,8 +32,6 @@ public breadcrumbs: IBreadCrumb[]
     let label = route.routeConfig && route.routeConfig.data ? route.routeConfig.data['breadcrumb'] : '';
     let isClickable = route.routeConfig && route.routeConfig.data && route.routeConfig.data['isClickable'];
     let path = route.routeConfig && route.routeConfig.data ? route.routeConfig.path : '';
-    console.log(path)
-    console.log(breadcrumbs)
     const lastRoutePart = path.split('/').pop();
     const isDynamicRoute = lastRoutePart.startsWith(':');
     if(isDynamicRoute && !!route.snapshot) {
@@ -42,6 +40,9 @@ public breadcrumbs: IBreadCrumb[]
       label = route.snapshot.params[paramName];
     }
     const nextUrl = path ? `${url}/${path}` : url;
+    if(label.length > 12) {
+      label = ' '
+    }
     const breadcrumb: IBreadCrumb = {
       label: label,
       url: nextUrl,
@@ -50,7 +51,6 @@ public breadcrumbs: IBreadCrumb[]
     if (route.firstChild) {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
-    console.log(newBreadcrumbs)
     return newBreadcrumbs;
   }
 }

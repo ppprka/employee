@@ -1,1 +1,9 @@
-<app-project-form (saveProject)="save($event)"></app-project-form>
+<div class="path-name">
+  <h1 class="p-component lg:font-bold">Projects</h1>
+  <h1 class="p-component next">Project add</h1>
+</div>
+
+<div class="empl-list project-form">
+  <app-project-form [isCV]="false" (saveProject)="save($event)"></app-project-form>
+</div>
+

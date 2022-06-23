@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {BaseControl} from "../../../classes/base-control.class";
 import {NgControl} from "@angular/forms";
 
@@ -8,5 +8,14 @@ import {NgControl} from "@angular/forms";
   styleUrls: ['./app-datepicker.component.css']
 })
 export class AppDatepickerComponent extends BaseControl {
+
+  @Input()
+  public isStart: boolean;
+  public date: Date;
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.date = new Date();
+  }
 
 }

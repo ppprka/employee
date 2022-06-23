@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {EmployeesPageComponent} from "./employee-page/employees-page.component";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {RouterModule, Routes} from "@angular/router";
@@ -13,19 +13,30 @@ import {EmployeesAddPageComponent} from "./employee-add-page/employees-add-page.
 import {EmployeesEditPageComponent} from "./employee-edit-page/employees-edit-page.component";
 import {EmployeeFormModule} from "../components/employee-form/employee-form.module";
 import {TabMenuModule} from "primeng/tabmenu";
-import {PanelMenuModule} from "primeng/panelmenu";
-import {MenuModule} from "primeng/menu";
 import {virtualCVReducer} from "../../../state/virual-cv/virtual-cv.reducer";
 import {VirtualCvEffects} from "../../../state/virual-cv/virtual-cv.effects";
 import {TableModule} from "primeng/table";
 import {AccordionModule} from "primeng/accordion";
-import {ProjectFormModule} from "../../projects/components/project-form/project-form.module";
+import {ProjectFormModule} from "../../../shared/components/project-form/project-form.module";
+import {DropdownModule} from "primeng/dropdown";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
     path: '',
     component: EmployeesPageComponent
-  }];
+  },
+  {
+    path: 'edit/:id',
+    data: {breadcrumb: 'Employee edit'},
+    component: EmployeesEditPageComponent
+  },
+  {
+    path: 'add',
+    data: {breadcrumb: 'Employee add'},
+    component: EmployeesAddPageComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -39,16 +50,17 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('virtualCV', virtualCVReducer),
     StoreModule.forFeature('employees', employeesReducer),
-    EffectsModule.forFeature([EmployeeEffects, VirtualCvEffects]),
-    ButtonModule,
-    BaseTableModule,
+    EffectsModule.forFeature([VirtualCvEffects, EmployeeEffects]),
     EmployeeFormModule,
+    ProjectFormModule,
     TabMenuModule,
-    PanelMenuModule,
-    MenuModule,
     TableModule,
     AccordionModule,
-    ProjectFormModule
+    BaseTableModule,
+    ButtonModule,
+    DropdownModule,
+    FormsModule
   ]
 })
-export class EmployeesModule { }
+export class EmployeesModule {
+}

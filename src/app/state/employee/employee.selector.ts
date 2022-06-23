@@ -11,3 +11,8 @@ export const selectAllEmployees = createSelector(
   selectEmployees,
   (state: EmployeeState) => state.employees
 );
+
+export const selectEmployee = createSelector(
+  selectEmployees,
+  (state: EmployeeState) => state.currentEmployee
+)

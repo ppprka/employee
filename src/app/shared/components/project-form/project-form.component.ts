@@ -1,21 +1,24 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {IProject, IProjectRole, IResponsibility, ISpecialization} from "../../../../shared/interfaces/project.interface";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import * as moment from "moment";
-import {Router} from "@angular/router";
-import {PROJECT_ROUTE} from "../../../../shared/constants/routing-path.const";
-import {getProjectsRoles} from "../../../../state/project-roles/project-roles.actions";
-import {selectAllProjectRoles} from "../../../../state/project-roles/project-roles.selector";
-import {Observable, tap} from "rxjs";
+import {
+  IProject,
+  IProjectCV
+} from "../../interfaces/project.interface";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {getProjectsRoles} from "../../../state/project-roles/project-roles.actions";
+import {selectAllProjectRoles, selectAllProjectRolesNames} from "../../../state/project-roles/project-roles.selector";
+import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
-import {AppState} from "../../../../state/app.state";
-import {getResponsibilities} from "../../../../state/responsibilities/responsibilities.actions";
+import {AppState} from "../../../state/app.state";
+import {getResponsibilities} from "../../../state/responsibilities/responsibilities.actions";
 import {
   selectAllResponsibilities,
-  selectResponsibilities
-} from "../../../../state/responsibilities/responsibilities.selector";
-import {getSpecializations} from "../../../../state/specializations/specialization.actions";
-import {selectAllSpecializations, selectSpecializations} from "../../../../state/specializations/specialization.selector";
+  selectAllResponsibilitiesNames
+} from "../../../state/responsibilities/responsibilities.selector";
+import {getSpecializations} from "../../../state/specializations/specialization.actions";
+import {
+  selectAllSpecializations,
+  selectAllSpecializationsNames
+} from "../../../state/specializations/specialization.selector";
 
 @Component({
   selector: 'app-project-form',
@@ -25,17 +28,24 @@ import {selectAllSpecializations, selectSpecializations} from "../../../../state
 export class ProjectFormComponent implements OnInit, OnChanges {
 
   @Input()
+  public isCV: boolean;
+
+  @Input()
+  public projectCV!: IProjectCV;
+
+  @Input()
   public project!: IProject;
 
-  public projectRoles$: Observable<IProjectRole[]>;
-  public responsibilities$: Observable<IResponsibility[]>
-  public specializations$: Observable<ISpecialization[]>
+  public projectRoles$: Observable<any[]>;
+  public responsibilities$: Observable<any[]>
+  public specializations$: Observable<any[]>
+
   @Output()
   public saveProject = new EventEmitter<IProject>();
 
   public projectForm: FormGroup;
 
-  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder) {
     this.projectForm = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -53,34 +63,56 @@ export class ProjectFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.store.dispatch(getProjectsRoles());
-    this.projectRoles$ = this.store.select(selectAllProjectRoles);
     this.store.dispatch(getResponsibilities());
-    this.responsibilities$ = this.store.select(selectAllResponsibilities);
     this.store.dispatch(getSpecializations());
-    this.specializations$ = this.store.select(selectAllSpecializations);
+    if (this.isCV) {
+      this.projectRoles$ = this.store.select(selectAllProjectRolesNames);
+      this.responsibilities$ = this.store.select(selectAllResponsibilitiesNames);
+      this.specializations$ = this.store.select(selectAllSpecializationsNames);
+    } else {
+      this.projectRoles$ = this.store.select(selectAllProjectRoles);
+      this.responsibilities$ = this.store.select(selectAllResponsibilities);
+      this.specializations$ = this.store.select(selectAllSpecializations);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["project"] && changes["project"].currentValue) {
-      this.projectForm.patchValue({
-        id: this.project.id,
-        name: this.project.name,
-        startDate: this.parseDate(this.project.startDate.toString()),
-        endDate: this.parseDate(this.project.endDate.toString()),
-        secondName: this.project.secondName,
-        teamSize: this.project.teamSize,
-        tasksPerformed: this.project.tasksPerformed,
-        responsibilities: this.project.responsibilities,
-        projectRoles: this.project.projectRoles,
-        specializations: this.project.specializations,
-        description: this.project.description
-      })
-
+    if ((changes["project"] && changes["project"].currentValue)
+      || (changes["projectCV"] && changes["projectCV"].currentValue)) {
+      if (!this.isCV) {
+        this.projectForm.patchValue({
+          id: this.project.id,
+          name: this.project.name,
+          startDate: this.parseDate(this.project.startDate.toString()),
+          endDate: this.parseDate(this.project.endDate.toString()),
+          secondName: this.project.secondName,
+          teamSize: this.project.teamSize,
+          tasksPerformed: this.project.tasksPerformed,
+          responsibilities: this.project.responsibilities,
+          projectRoles: this.project.projectRoles,
+          specializations: this.project.specializations,
+          description: this.project.description
+        })
+      } else {
+        this.projectForm.patchValue({
+          id: this.projectCV.id,
+          name: this.projectCV.name,
+          startDate: this.parseDate(this.projectCV.startDate.toString()),
+          endDate: this.parseDate(this.projectCV.endDate.toString()),
+          secondName: this.projectCV.secondName,
+          teamSize: this.projectCV.teamSize,
+          tasksPerformed: this.projectCV.tasksPerformed,
+          responsibilities: this.projectCV.responsibilities,
+          projectRoles: this.projectCV.projectRoles,
+          specializations: this.projectCV.specializations,
+          description: this.projectCV.description
+        })
+      }
     }
   }
 
   public save(): void {
-    if(this.projectForm.invalid) {
+    if (this.projectForm.invalid) {
       this.projectForm.markAllAsTouched();
       return;
     }
@@ -93,8 +125,8 @@ export class ProjectFormComponent implements OnInit, OnChanges {
   }
 
   public parseDate(date: string): Date {
-     const d = new Date(date);
-     const utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
-     return utcDate;
+    const d = new Date(date);
+    const utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
+    return utcDate;
   }
 }
