@@ -1,0 +1,14 @@
+<div class="path-name">
+  <h1 class="p-component">Employees</h1>
+  <h1 class="p-component next">Employees list</h1>
+</div>
+<div class="empl-list">
+  <div *ngIf="showBaseTable">
+    <button pButton (click)="addEmployee()">Add</button>
+  </div>
+  <app-base-table *ngIf="showBaseTable" [cols]="columns" [objects]="employees$ | async" (edit)="editEmployee($event)"></app-base-table>
+  <app-employees-edit-page *ngIf="showEditTable" [employee]="employee" [virtualCV]="virtualCV$ | async" (editEmployee)="save($event)"></app-employees-edit-page>
+<!--  <app-employees-add-page *ngIf="showAddTable" [employee]="employee"></app-employees-add-page>-->
+<!--  <app-employees-add-page *ngIf="showAddTable" [employee]="employee" (addProject)="save($event)"></app-employees-add-page>-->
+</div>
+

@@ -1,0 +1,34 @@
+<p-tabMenu [model]="menu" [activeItem]="menu[0]" (click)="selectMenu()"></p-tabMenu>
+<ng-container *ngIf="!infoOrCV">
+  <app-employee-form [hideButtons]="false" [employee]="employee" (saveEmployee)="save($event)"></app-employee-form>
+</ng-container>
+<ng-container  *ngIf="infoOrCV">
+  <div class="cv-block">
+    <div style="width: 15%;">
+      <p-table  [value]="usersVirtualCV" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedCV">
+        <ng-template  pTemplate="body" let-rowData>
+          <tr [pSelectableRow]="rowData">
+            <td>
+              CV {{usersVirtualCV.indexOf(rowData) + 1}}
+            </td>
+            <td (click)="delete(usersVirtualCV.indexOf(rowData))" class="pi pi-trash delete-button">
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div>
+      <app-employee-form [hideButtons]="true" [employee]="employee" (saveEmployee)="save($event)"></app-employee-form>
+      <div style="padding-left: 2rem" >
+          <p-accordion>
+            <p-accordionTab *ngFor="let project of selectedCV.projects; let index = index"  header="{{index}}">
+              <ng-template pTemplate="content">
+                <app-project-form [project]="project"></app-project-form>
+              </ng-template>
+            </p-accordionTab>
+          </p-accordion>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

@@ -1,0 +1,30 @@
+<div class="empl-list">
+  <div class="form-input">
+    <div class="p-fluid grid" [formGroup]=employeeForm>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">First Name</div>
+        <app-app-input formControlName="firstName" label="name"></app-app-input>
+        &nbsp;
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Last Name</div>
+        <app-app-input formControlName="lastName" label="name"></app-app-input>
+        &nbsp;
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Email</div>
+        <app-app-input formControlName="email" label="name"></app-app-input>
+        &nbsp;
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Department</div>
+        <app-app-input formControlName="department" label="name"></app-app-input>
+        &nbsp;
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!hideButtons" style="display:flex">
+    <button class="p-button save-button" (click)="save()">Save</button>
+    <button class="p-button close-button" (click)="cancel()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+@import "primeflex/primeflex.css";
+
+html {
+  margin: 0;
+  font-size: 15px;
+}
+.keke {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 276px;
+  height: 100%;
+  background-color: #FFFFFF;
+  border-left: black;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  background-color: #f3f3f3;
+  margin-left: 5px;
+}
+.header {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #091a32;
+}
+.box-header {
+  display: block;
+  height: 30%;
+  width: 100%;
+  background-color: white;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+.icon-search {
+  margin-left: 50vw;
+}
+
+.breadcrumb-container {
+  width: 100%;
+
+}
+
+.path-name {
+  padding-left: 45px;
+  margin-top: -11px;
+  font-weight: bold;
+  background-color: white;
+}
+
+.next {
+  padding-top: 10px;
+  padding-bottom: 15px
+}
+
+.empl-list {
+  margin-top: 24px;
+  margin-left: 19px;
+  margin-right: 24px;
+  background-color: #ffffff;
+  height: auto;
+
+}
+
+.auth-back {
+  width: 100vw;
+  height: 100vh;
+}
+.bg-color {
+  background: #F0F2F5 !important;
+}
+
+.auth-center {
+  top: 10%;
+  left: 37%;
+  position: absolute;
+  width: 25% !important;
+}
+
+.form-input {
+  width: 70%;
+  margin: 10px;
+}
+.archive {
+  padding: 10px;
+  left: 90%;
+  position: relative;
+}
+.save-button {
+  padding: 0;
+  margin-left: 80% !important;
+}
+.close-button {
+  margin-left: 40px !important;
+  background: #c4c4c4 !important;
+  border: 1px solid #c4c4c4 !important;
+}
+
+.red-text {
+  color: red;
+  font-size: 0.7rem !important;
+}
+
+.menu-employee {
+  padding-right: 10px !important;
+}
+
+:host ::ng-deep .p-datatable table {
+  min-width: 15%;
+
+}
+
+.delete-button {
+  cursor: pointer;
+}
+
+.cv-block {
+  height: auto;
+  min-height: 400px;
+  display: flex
+}

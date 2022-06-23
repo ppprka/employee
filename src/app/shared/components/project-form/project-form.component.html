@@ -1,0 +1,79 @@
+<div class="empl-list">
+  <div class="archive">
+    <p-button styleClass="p-button-sm">Archive</p-button>
+  </div>
+  <div class="form-input">
+    <div class="p-fluid grid" [formGroup]=projectForm>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Name</div>
+        <app-app-input formControlName="name" label="name"></app-app-input>
+        &nbsp;
+<!--        <input type="text" class="p-inputtext-sm" formControlName="name" id="name" pInputText placeholder="placeholder">-->
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Start Date</div>
+        <app-app-datepicker formControlName="startDate"></app-app-datepicker>
+        &nbsp;
+<!--        <p-calendar id="startDate" [showIcon]="true" [showTime]="true" formControlName="startDate" placeholder="Select date" ></p-calendar>-->
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">End Date</div>
+        <app-app-datepicker formControlName="endDate"></app-app-datepicker>
+        &nbsp;
+<!--        <p-calendar id="endDate" [showIcon]="true" [showTime]="true" formControlName="endDate" placeholder="Select date"></p-calendar>-->
+      </div>
+
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Second Name</div>
+        <app-app-input formControlName="secondName" aria-placeholder="placeholder" label="secondName"></app-app-input>
+        &nbsp;
+<!--        <input type="text" class="p-inputtext-sm" formControlName="secondName" id="secondName" pInputText placeholder="placeholder">-->
+      </div>
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Team size</div>
+        <app-app-input formControlName="teamSize" aria-placeholder="placeholder" label="teamSize"></app-app-input>
+        &nbsp;
+<!--        <input type="text" class="p-inputtext-sm" formControlName="teamSize" id="teamSize" pInputText placeholder="placeholder">-->
+      </div>
+      <div class="field col-12 md:col-4">
+        <span class="p-component">Task performed</span>
+        <app-app-input formControlName="teamSize" aria-placeholder="taskPerformed" label="taskPerformed"></app-app-input>
+        &nbsp;
+<!--        <input type="text" class="p-inputtext-sm" formControlName="tasksPerformed" id="taskPerformed" pInputText placeholder="placeholder">-->
+      </div>
+
+      <div class="field col-12">
+        <div class="p-component">Responsibilities</div>
+        <app-app-multiselect optionLabelField="name" [options]="responsibilities$ | async" formControlName="responsibilities" defaultLabel="Select a responsibility"></app-app-multiselect>
+        &nbsp;
+        <!--        <p-multiSelect [options]="responsibilities$ | async" formControlName="responsibilities" defaultLabel="Select a responsibility" optionLabel="name" display="chip"></p-multiSelect>-->
+      </div>
+      <div class="field col-12">
+        <div class="p-component">Project Roles</div>
+        <app-app-multiselect optionLabelField="name" [options]="projectRoles$ | async" formControlName="projectRoles" defaultLabel="Select a project role"></app-app-multiselect>
+        &nbsp;
+        <!--        <p-multiSelect [options]="projectRoles$ | async" formControlName="projectRoles" defaultLabel="Select a project role" optionLabel="name" display="chip"></p-multiSelect>-->
+      </div>
+      <div class="field col-12">
+        <div class="p-component">Specializations</div>
+        <app-app-multiselect optionLabelField="name" [options]="specializations$ | async" formControlName="specializations" defaultLabel="Select a project role"></app-app-multiselect>
+        &nbsp;
+        <!--        <p-multiSelect [options]="specializations$ | async" formControlName="specializations" defaultLabel="Select a specialization" optionLabel="name" display="chip"></p-multiSelect>-->
+      </div>
+
+      <div class="field col-12 md:col-4">
+        <div class="p-component">Description</div>
+        <app-app-textarea formControlName="description" aria-placeholder="Autoresize"></app-app-textarea>
+        &nbsp;
+        <!--        <textarea id="description" formControlName="description" rows="3" cols="30" [autoResize]="true" pInputTextarea placeholder="Autoresize"></textarea>-->
+      </div>
+
+    </div>
+  </div>
+  <div style="display:flex">
+<!--    <ng-container *ngIf="projectForm.invalid && projectForm.touched"></ng-container>-->
+    <button class="p-button save-button" (click)="save()">Save</button>
+<!--    <button [disabled]="projectForm.invalid" class="p-button save-button" (click)="save()">Save</button>-->
+    <button class="p-button close-button" (click)="cancel()">Cancel</button>
+  </div>
+</div>

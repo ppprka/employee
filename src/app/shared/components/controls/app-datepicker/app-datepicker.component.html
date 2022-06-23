@@ -1,0 +1,2 @@
+<p-calendar [ngClass]="{'ng-invalid ng-dirty':control.touched && control.invalid}" [formControl]="control" [showIcon]="true" [showTime]="true" ></p-calendar>
+<small class="p-component red-text" *ngIf="control.touched && control.invalid">This field is required</small>

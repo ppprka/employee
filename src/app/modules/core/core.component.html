@@ -1,0 +1,25 @@
+<div class="header">
+  <p-menubar [model]="navbar">
+    <ng-template pTemplate="start">
+      <img src="assets/logo.png" height="40" class="mr-2" alt="1">
+    </ng-template>
+  </p-menubar>
+</div>
+<ng-container>
+  <div class="keke">
+    <div class="sidebar">
+      <p-menu [model]="items"></p-menu>
+    </div>
+    <div class="container">
+      <div class="breadcrumb-container">
+        <div style="background-color: white">
+          <app-breadcrumb></app-breadcrumb>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+

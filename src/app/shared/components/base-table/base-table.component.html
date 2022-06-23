@@ -1,0 +1,17 @@
+<p-table [columns]="cols" [value]="objects" [rows]="10" responsiveLayout="scroll"
+         selectionMode="single">
+  <ng-template  pTemplate="header" let-columns>
+    <tr>
+      <th style="width: auto" *ngFor="let col of columns">
+        {{col.columnName}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td (click)="editRow(rowData)" *ngFor="let col of columns">
+        {{rowData[col.name]}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

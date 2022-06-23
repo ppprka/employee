@@ -1,0 +1,7 @@
+<ol class="breadcrumb pi p-menuitem-text">
+  <li *ngFor="let breadcrumb of breadcrumbs">
+    <span class="p-component" style="font-size: .8em" [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
+      {{ breadcrumb.label }}
+    </span>
+  </li>
+</ol>

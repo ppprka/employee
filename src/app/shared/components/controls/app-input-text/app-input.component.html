@@ -1,0 +1,2 @@
+<input [ngClass]="{'ng-invalid ng-dirty':control.touched && control.invalid}"  class="p-inputtext-sm" [formControl]="control" pInputText placeholder="selectname">
+<small class="p-component red-text" *ngIf="control.touched && control.invalid">This field is required</small>
